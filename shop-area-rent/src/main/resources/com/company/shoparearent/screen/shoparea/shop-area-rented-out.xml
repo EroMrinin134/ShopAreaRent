@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://shopAreaRentedOut.caption"
+        focusComponent="shopAreasTable">
+    <data readOnly="true">
+        <instance id="selectedClientDc"
+                  class="com.company.shoparearent.entity.LeaseContract">
+            <fetchPlan extends="_base">
+                <property name="client" fetchPlan="_instance_name"/>
+            </fetchPlan>
+        </instance>
+        <collection id="shopAreasDc"
+                    class="com.company.shoparearent.entity.ShopArea">
+            <fetchPlan extends="_base"/>
+            <loader id="shopAreasDl">
+                <query>
+                    <![CDATA[select e from ShopArea e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="shopAreasTable" spacing="true">
+        <hbox id="selectedClientBox" spacing="true">
+            <entityPicker id="selectedClientField"
+                          dataContainer="selectedClientDc"
+                          property="client"
+                          caption="msg://com.company.shoparearent.screen.shoparea/shopAreaRentedOut.selectedClient">
+                <actions>
+                    <action id="lookup" type="entity_lookup"/>
+                    <action id="clear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </hbox>
+        <groupTable id="shopAreasTable"
+                    width="100%"
+                    dataContainer="shopAreasDc">
+            <actions>
+            </actions>
+            <columns>
+                <column id="number" caption="msg://com.company.shoparearent.entity/ShopArea.number"/>
+                <column id="floor" caption="msg://com.company.shoparearent.entity/ShopArea.floor"/>
+                <column id="area" caption="msg://com.company.shoparearent.entity/ShopArea.area"/>
+                <column id="rent" caption="msg://com.company.shoparearent.entity/ShopArea.rent"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
