@@ -12,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class LeaseContractEdit extends StandardEditor<LeaseContract> {
 
     @Autowired
+    private MessageBundle messageBundle;
+
+    @Autowired
     private Notifications notifications;
+
     @Autowired
     private LeaseContractEditService leaseContractEditService;
 
@@ -22,12 +26,12 @@ public class LeaseContractEdit extends StandardEditor<LeaseContract> {
 
         if(!leaseContractEditService.IsCorrectDates(lc.getDateStart(), lc.getDateEnd())) {
             event.preventCommit();
-            notifications.create().withCaption("Date start can't be after date end").show();
+            notifications.create().withCaption(messageBundle.getMessage("leaseContractEdit.dateExceptionMessage")).show();
         }
 
-        if(leaseContractEditService.IsAlreadyRentedOut(lc.getShopArea(), lc.getDateStart(), lc.getDateEnd())) {
+        if(leaseContractEditService.IsAlreadyRentedOut(lc)) {
             event.preventCommit();
-            notifications.create().withCaption("The shop area is already rented out at that dates").show();
+            notifications.create().withCaption(messageBundle.getMessage("leaseContractEdit.rentedOutExceptionMessage")).show();
         }
     }
 }

@@ -19,20 +19,20 @@ public class LeaseContractEditService {
         return !dateStart.isAfter(dateEnd);
     }
 
-    public boolean IsAlreadyRentedOut(ShopArea shopArea, LocalDate dateStart, LocalDate dateEnd) {
-        List<LeaseContract> leaseContracts = dataManager.load(LeaseContract.class)
-                .all()
-                .list();
+    public boolean IsAlreadyRentedOut(LeaseContract newLeaseContract) {
+        List<LeaseContract> leaseContracts = dataManager.load(LeaseContract.class).all().list();
+        ShopArea shopArea = newLeaseContract.getShopArea();
+        LocalDate dateStart = newLeaseContract.getDateStart(), dateEnd = newLeaseContract.getDateEnd();
+
         for (LeaseContract leaseContract : leaseContracts) {
-            if(!leaseContract.getShopArea().getNumber().equals(shopArea.getNumber()))
+            if(!leaseContract.getShopArea().equals(shopArea) ||
+                    newLeaseContract.getId().equals(leaseContract.getId())) // We need to skip old version of entity.
                 continue;
 
-            if ((!leaseContract.getDateStart().isBefore(dateStart) &&
-                !leaseContract.getDateStart().isAfter(dateEnd)) ||
-                (!leaseContract.getDateEnd().isBefore(dateStart) &&
-                !leaseContract.getDateEnd().isAfter(dateEnd))
-                )
+            if (DateComparator.isBetween(dateStart, dateEnd,
+                    leaseContract.getDateStart(), leaseContract.getDateEnd())) {
                 return true;
+            }
         }
         return false;
     }

@@ -37,7 +37,7 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="shopAreasTable" spacing="true">
-        <hbox id="selectedClientBox" spacing="true">
+        <hbox id="selectedBox" spacing="true">
             <entityPicker id="selectedClientField"
                           dataContainer="selectedClientDc"
                           property="client"
@@ -47,6 +47,8 @@
                     <action id="clear" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <dateField id="selectedDateField" resolution="DAY" caption="msg://com.company.shoparearent.screen.shoparea/shopAreaRentedOut.selectedDate"/>
+            <textField id="totalRentField" datatype="double" editable="false" caption="msg://com.company.shoparearent.screen.shoparea/shopAreaRentedOut.totalRent"/>
         </hbox>
         <groupTable id="shopAreasTable"
                     width="100%"

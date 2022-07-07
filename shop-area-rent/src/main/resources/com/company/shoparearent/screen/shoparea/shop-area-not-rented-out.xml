@@ -31,8 +31,8 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="shopAreasTable" spacing="true">
-        <hbox id="selectedDateBox" spacing="true">
-            <datePicker resolution="MONTH"/>
+        <hbox id="selectedBox" spacing="true">
+            <dateField id="selectedDateField" resolution="DAY" caption="msg://com.company.shoparearent.screen.shoparea/shopAreaNotRentedOut.selectedDate"/>
         </hbox>
         <groupTable id="shopAreasTable"
                     width="100%"
