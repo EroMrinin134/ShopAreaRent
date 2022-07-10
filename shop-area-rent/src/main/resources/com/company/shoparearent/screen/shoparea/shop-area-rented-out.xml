@@ -52,6 +52,7 @@
         </hbox>
         <groupTable id="shopAreasTable"
                     width="100%"
+                    aggregatable="true"
                     dataContainer="shopAreasDc">
             <actions>
             </actions>
@@ -59,7 +60,9 @@
                 <column id="number" caption="msg://com.company.shoparearent.entity/ShopArea.number"/>
                 <column id="floor" caption="msg://com.company.shoparearent.entity/ShopArea.floor"/>
                 <column id="area" caption="msg://com.company.shoparearent.entity/ShopArea.area"/>
-                <column id="rent" caption="msg://com.company.shoparearent.entity/ShopArea.rent"/>
+                <column id="rent" caption="msg://com.company.shoparearent.entity/ShopArea.rent">
+                    <aggregation type="SUM"/>
+                </column>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
