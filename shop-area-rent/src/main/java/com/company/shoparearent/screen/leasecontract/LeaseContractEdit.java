@@ -24,12 +24,12 @@ public class LeaseContractEdit extends StandardEditor<LeaseContract> {
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
         LeaseContract lc = getEditedEntity();
 
-        if(!leaseContractEditService.IsCorrectDates(lc.getDateStart(), lc.getDateEnd())) {
+        if(!leaseContractEditService.isCorrectDates(lc.getDateStart(), lc.getDateEnd())) {
             event.preventCommit();
             notifications.create().withCaption(messageBundle.getMessage("leaseContractEdit.dateExceptionMessage")).show();
         }
 
-        if(leaseContractEditService.IsAlreadyRentedOut(lc)) {
+        if(leaseContractEditService.isAlreadyRentedOut(lc)) {
             event.preventCommit();
             notifications.create().withCaption(messageBundle.getMessage("leaseContractEdit.rentedOutExceptionMessage")).show();
         }

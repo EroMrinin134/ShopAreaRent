@@ -15,11 +15,11 @@ public class LeaseContractEditService {
     @Autowired
     private DataManager dataManager;
 
-    public boolean IsCorrectDates(LocalDate dateStart, LocalDate dateEnd) {
+    public boolean isCorrectDates(LocalDate dateStart, LocalDate dateEnd) {
         return !dateStart.isAfter(dateEnd);
     }
 
-    public boolean IsAlreadyRentedOut(LeaseContract newLeaseContract) {
+    public boolean isAlreadyRentedOut(LeaseContract newLeaseContract) {
         List<LeaseContract> leaseContracts = dataManager.load(LeaseContract.class).all().list();
         ShopArea shopArea = newLeaseContract.getShopArea();
         LocalDate dateStart = newLeaseContract.getDateStart(), dateEnd = newLeaseContract.getDateEnd();
